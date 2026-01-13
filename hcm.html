@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tư Tưởng Hồ Chí Minh</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Dancing+Script:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #2d3748;
+        background-image: url("background.jpg"); /* Sử dụng ảnh nền local */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        font-family: "Roboto", sans-serif;
+        overflow: hidden;
+      }
+
+      .book-container {
+        perspective: 1500px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .book {
+        position: relative;
+        width: 460px; /* Tăng chiều rộng để chứa nội dung */
+        height: 680px; /* Tăng chiều cao đáng kể */
+        transform-style: preserve-3d;
+        transition: transform 0.5s;
+      }
+
+      .paper {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        transform-origin: left center;
+        transform-style: preserve-3d;
+        transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+        cursor: pointer;
+        border-radius: 2px 8px 8px 2px;
+        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      .front,
+      .back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        background-color: #fdfbf7;
+        background-image: url("https://www.transparenttextures.com/patterns/paper.png");
+        display: flex;
+        flex-direction: column;
+        padding: 2.5rem 2.5rem; /* Tăng padding */
+        box-sizing: border-box;
+        border: 1px solid #e2e8f0;
+        border-left: 2px solid #cbd5e0;
+        overflow-y: hidden;
+        justify-content: space-between; /* Căn đều nội dung dọc */
+      }
+
+      .front {
+        z-index: 2;
+      }
+      .back {
+        z-index: 1;
+        transform: rotateY(180deg);
+        border-left: none;
+        border-right: 2px solid #cbd5e0;
+      }
+
+      .front::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 25px;
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.15), transparent);
+        pointer-events: none;
+      }
+      .back::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: 25px;
+        background: linear-gradient(to left, rgba(0, 0, 0, 0.15), transparent);
+        pointer-events: none;
+      }
+
+      /* Fix interaction on flipped pages */
+      .paper.flipped .front {
+        pointer-events: none;
+      }
+      .paper.flipped .back {
+        pointer-events: auto;
+      }
+      .paper:not(.flipped) .back {
+        pointer-events: none;
+      }
+      .paper:not(.flipped) .front {
+        pointer-events: auto;
+      }
+
+      .flipped {
+        transform: rotateY(-180deg);
+      }
+      .paper {
+        z-index: 1;
+      }
+
+      /* Typography Custom */
+      h1,
+      h2,
+      h3 {
+        font-family: "Playfair Display", serif;
+        color: #2d3748;
+      }
+      .handwriting {
+        font-family: "Dancing Script", cursive;
+      }
+      p,
+      li {
+        font-size: 16px; /* Tăng cỡ chữ */
+        line-height: 1.7; /* Tăng khoảng cách dòng */
+        color: #2d3748; /* Màu chữ đậm hơn chút cho dễ đọc */
+        text-align: justify;
+        margin-bottom: 0.2rem; /* Giảm khoảng cách đoạn */
+      }
+      strong {
+        color: #1a202c;
+        font-weight: 700;
+      }
+
+      .page-number {
+        position: absolute;
+        bottom: 10px;
+        width: 100%;
+        text-align: center;
+        font-size: 12px;
+        color: #a0aec0;
+        font-style: italic;
+        left: 0;
+      }
+
+      .controls {
+        position: absolute;
+        bottom: 20px;
+        display: flex;
+        gap: 15px;
+        z-index: 50;
+      }
+
+      /* Cover Styles */
+      .cover-front {
+        background-color: #500000; /* Đỏ thẫm */
+        background-image: url("https://www.transparenttextures.com/patterns/leather.png");
+        color: #ffd700;
+        border: 4px solid #552211;
+      }
+      .cover-back {
+        background-color: #500000;
+        background-image: url("https://www.transparenttextures.com/patterns/leather.png");
+        border: 4px solid #552211;
+      }
+      .gold-text {
+        background: linear-gradient(
+          to right,
+          #bf953f,
+          #fcf6ba,
+          #b38728,
+          #fbf5b7,
+          #aa771c
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Fixed Header -->
+    <div
+      class="fixed top-8 left-8 z-50 text-white drop-shadow-md pointer-events-none"
+    >
+      <h3
+        class="text-sm font-light tracking-[0.2em] uppercase text-red-500 mb-1"
+      >
+        Chính trị - Xã hội
+      </h3>
+      <h1 class="text-2xl font-bold leading-tight text-yellow-500">
+        Giá trị tư tưởng Hồ Chí Minh với thời đại
+      </h1>
+    </div>
+
+    <div class="book-container">
+      <div id="book" class="book">
+        <!-- TRANG 1: BÌA & TRANG 1 -->
+        <div class="paper" id="p1">
+          <div
+            class="front cover-front flex items-center justify-center text-center"
+          >
+            <div
+              class="border-4 border-double border-yellow-500/40 p-6 w-full h-full flex flex-col justify-between rounded-sm relative overflow-hidden"
+            >
+              <!-- Decorative corners -->
+              <div
+                class="absolute top-2 left-2 w-8 h-8 border-t-2 border-l-2 border-yellow-500/60"
+              ></div>
+              <div
+                class="absolute top-2 right-2 w-8 h-8 border-t-2 border-r-2 border-yellow-500/60"
+              ></div>
+              <div
+                class="absolute bottom-2 left-2 w-8 h-8 border-b-2 border-l-2 border-yellow-500/60"
+              ></div>
+              <div
+                class="absolute bottom-2 right-2 w-8 h-8 border-b-2 border-r-2 border-yellow-500/60"
+              ></div>
+
+              <div class="mt-8 relative z-10">
+                <div class="w-16 h-16 mx-auto mb-6 text-yellow-500 opacity-90">
+                  <!-- Star Icon -->
+                  <svg
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    class="drop-shadow-lg"
+                  >
+                    <path
+                      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                    ></path>
+                  </svg>
+                </div>
+
+                <h2
+                  class="text-xs tracking-[0.3em] text-yellow-200/80 uppercase mb-4 font-sans"
+                >
+                  Tác phẩm
+                </h2>
+
+                <h1
+                  class="text-4xl md:text-5xl font-bold gold-text leading-tight mb-6 font-serif tracking-wide"
+                  style="font-family: 'Playfair Display', serif"
+                >
+                  Ngọn đuốc<br />
+                  <span
+                    class="text-3xl md:text-4xl italic font-light block mt-2"
+                    style="font-family: 'Dancing Script', cursive"
+                    >soi đường thời đại</span
+                  >
+                </h1>
+
+                <div
+                  class="w-24 h-1 bg-gradient-to-r from-transparent via-yellow-500 to-transparent mx-auto opacity-70"
+                ></div>
+              </div>
+
+              <div class="mb-6 relative z-10">
+                <p
+                  class="text-yellow-400 font-bold text-xs tracking-wider uppercase drop-shadow-md"
+                >
+                  Nhóm 1
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="back">
+            <h2
+              class="text-lg font-bold text-center mb-3 text-red-800 border-b pb-1 uppercase"
+            >
+              Lời Mở Đầu
+            </h2>
+            <h3 class="text-md font-bold text-center italic mb-3 text-gray-600">
+              Tầm vóc xuyên thời gian
+            </h3>
+            <p>
+              Thế kỷ XX đã qua đi với bao biến động thăng trầm, nhưng tư tưởng
+              Hồ Chí Minh vẫn sừng sững như một ngọn hải đăng, không chỉ soi
+              sáng con đường giải phóng cho dân tộc Việt Nam mà còn mang giá trị
+              thời đại sâu sắc.
+            </p>
+            <p>
+              C.Mác từng nói:
+              <em
+                >"Mỗi thời đại xã hội đều cần có những con người vĩ đại của
+                nó"</em
+              >. Hồ Chí Minh chính là nhân vật lịch sử ấy, người đã đáp ứng yêu
+              cầu cấp thiết của thời đại: giải phóng các dân tộc bị áp bức gắn
+              liền với tiến bộ xã hội.
+            </p>
+            <p>
+              Cuốn sách này sẽ đưa bạn đi từ những giá trị lịch sử cốt lõi đến
+              tính thời sự nóng hổi của tư tưởng Người trong công cuộc xây dựng,
+              chỉnh đốn Đảng và phát triển đất nước ngày nay.
+            </p>
+            <div class="page-number">1</div>
+          </div>
+        </div>
+
+        <!-- TRANG 2: TRANG 2 & 3 -->
+        <div class="paper" id="p2">
+          <div class="front">
+            <h2 class="text-lg font-bold text-red-800 mb-2 uppercase">
+              Độc lập Dân tộc & CNXH
+            </h2>
+            <p>
+              Hồ Chí Minh là người đầu tiên chỉ ra rằng: Độc lập dân tộc không
+              phải là mục tiêu cuối cùng, mà là tiền đề tiên quyết. Nhưng độc
+              lập để làm gì nếu người dân vẫn khổ cực?
+            </p>
+            <p>
+              Người khẳng định một chân lý bất hủ:
+              <em
+                >"Nếu nước độc lập mà dân không được hưởng hạnh phúc, tự do, thì
+                độc lập cũng chẳng có nghĩa lý gì"</em
+              >.
+            </p>
+            <p>
+              Chính vì vậy, Người đã gắn chặt độc lập dân tộc với chủ nghĩa xã
+              hội. Chỉ có chủ nghĩa xã hội mới xóa bỏ tận gốc áp bức, bóc lột và
+              bảo vệ nền độc lập ấy một cách bền vững.
+            </p>
+            <div class="bg-red-50 p-2 rounded border-l-4 border-red-800 my-2">
+              <p class="text-sm italic text-red-900 m-0 text-center">
+                Đó là con đường tất yếu để hướng tới một xã hội "Dân giàu, nước
+                mạnh, dân chủ, công bằng, văn minh".
+              </p>
+            </div>
+            <div class="page-number">2</div>
+          </div>
+          <div class="back">
+            <h2 class="text-lg font-bold text-red-800 mb-2 uppercase">
+              Hòa Bình & Văn Hóa
+            </h2>
+            <p>
+              Tư tưởng Hồ Chí Minh vượt ra khỏi biên giới quốc gia, trở thành
+              kim chỉ nam cho nền ngoại giao hiện đại với triết lý:
+              <em
+                >"Làm bạn với tất cả mọi nước dân chủ và không gây thù oán với
+                một ai"</em
+              >.
+            </p>
+            <p>
+              Người sớm nhìn nhận rằng không dân tộc nào có thể phát triển trong
+              sự cô lập. Hợp tác quốc tế là xu thế tất yếu để phá bỏ sự biệt lập
+              và tạo nên sức mạnh tổng hợp.
+            </p>
+            <p>
+              Sự vĩ đại ấy đã được thế giới công nhận. Năm 1987, UNESCO đã ra
+              Nghị quyết số 24C/18.6.5 tôn vinh Chủ tịch Hồ Chí Minh là
+              <strong
+                >"Anh hùng giải phóng dân tộc và Nhà văn hóa kiệt xuất của Việt
+                Nam"</strong
+              >.
+            </p>
+            <div class="page-number">3</div>
+          </div>
+        </div>
+
+        <!-- TRANG 3: TRANG 4 & 5 -->
+        <div class="paper" id="p3">
+          <div class="front">
+            <h2 class="text-lg font-bold text-red-800 mb-2 uppercase">
+              Tính Thời Sự (1)
+            </h2>
+            <h3 class="font-bold text-gray-800 mb-1">
+              Xây Dựng Đảng Là Đạo Đức, Văn Minh
+            </h3>
+            <p>
+              Người từng cảnh báo:
+              <em
+                >"Một dân tộc, một Đảng và mỗi con người, ngày hôm qua là vĩ
+                đại... không nhất định hôm nay và ngày mai vẫn được mọi người
+                yêu mến... nếu lòng dạ không trong sáng nữa"</em
+              >.
+            </p>
+            <p>
+              Người chỉ mặt đặt tên cho "kẻ thù" nguy hiểm nhất ẩn nấp bên trong
+              mỗi cán bộ, đảng viên: <strong>Chủ nghĩa cá nhân</strong>. Người
+              gọi đây là "thứ vi trùng rất độc", là nguồn gốc sinh ra tham ô,
+              lãng phí, quan liêu và ham mê quyền lực.
+            </p>
+            <p>
+              Nếu không kiên quyết đấu tranh, Đảng sẽ mất dần uy tín và niềm tin
+              của nhân dân.
+            </p>
+            <div class="page-number">4</div>
+          </div>
+          <div class="back">
+            <h2 class="text-lg font-bold text-red-800 mb-2 uppercase">
+              Thực Tiễn: "Vũ Khí" Chống Suy Thoái
+            </h2>
+            <p>
+              Làm thế nào để Đảng luôn trong sạch? Hồ Chí Minh đã trao cho chúng
+              ta những "vũ khí" sắc bén:
+            </p>
+            <ul class="list-decimal pl-4 text-sm text-gray-600 space-y-1 mb-2">
+              <li>
+                <strong>Đạo đức là gốc:</strong> "Người cách mạng phải có đạo
+                đức, không có đạo đức thì dù tài giỏi mấy cũng không lãnh đạo
+                được nhân dân".
+              </li>
+              <li>
+                <strong>Tự phê bình và phê bình:</strong> Phải trung thực, thẳng
+                thắn nhưng dựa trên tình đồng chí.
+              </li>
+              <li>
+                <strong>Dựa vào dân:</strong> "Dễ trăm lần không dân cũng chịu,
+                khó vạn lần dân liệu cũng xong".
+              </li>
+            </ul>
+            <p class="text-sm">
+              Việc kiên quyết phòng chống suy thoái tư tưởng, đạo đức hiện nay
+              chính là sự vận dụng sáng tạo những lời dạy này.
+            </p>
+            <div class="page-number">5</div>
+          </div>
+        </div>
+
+        <!-- TRANG 4: TRANG 6 & 7 -->
+        <div class="paper" id="p4">
+          <div class="front">
+            <h2 class="text-lg font-bold text-red-800 mb-2 uppercase">
+              Tính Thời Sự (2)
+            </h2>
+            <h3 class="font-bold text-gray-800 mb-1">
+              Nhà Nước Của Dân, Do Dân, Vì Dân
+            </h3>
+            <p>
+              Tư tưởng cốt lõi: Nhà nước không phải nơi để "làm quan phát tài",
+              mà là công cụ để phục vụ nhân dân.
+            </p>
+            <ul class="list-disc pl-4 text-sm text-gray-600 mb-2">
+              <li><strong>Của dân:</strong> Quyền lực thuộc về nhân dân.</li>
+              <li><strong>Do dân:</strong> Dân cử ra, dân kiểm soát.</li>
+              <li>
+                <strong>Vì dân:</strong> "Việc gì lợi cho dân phải hết sức làm,
+                việc gì hại cho dân phải hết sức tránh".
+              </li>
+            </ul>
+            <p>
+              Trong bối cảnh hiện nay, điều này đòi hỏi chúng ta phải xây dựng
+              một bộ máy nhà nước tinh gọn, hiệu quả, chống lại căn bệnh quan
+              liêu.
+            </p>
+            <div class="page-number">6</div>
+          </div>
+          <div class="back">
+            <h2 class="text-lg font-bold text-red-800 mb-2 uppercase">
+              Ví Dụ Thực Tiễn
+            </h2>
+            <h3 class="font-bold text-gray-800 mb-1">
+              Tinh Gọn Bộ Máy & "Đốt Lò"
+            </h3>
+            <p>
+              <strong>Tinh gọn bộ máy:</strong> Chủ trương sáp nhập các đơn vị
+              hành chính chính là vận dụng lời dạy của Bác: "Bộ máy cồng kềnh
+              thì làm việc lúng túng... lãng phí".
+            </p>
+            <p>
+              <strong>Chống "Giặc nội xâm":</strong> Hình ảnh "Củi - Lò" của Cố
+              Tổng Bí thư Nguyễn Phú Trọng là sự kế thừa xuất sắc tư tưởng Hồ
+              Chí Minh: coi tham ô là tội ác, phải trừng trị thẳng tay không có
+              vùng cấm, để làm trong sạch bộ máy, củng cố niềm tin của nhân dân.
+            </p>
+            <div class="page-number">7</div>
+          </div>
+        </div>
+
+        <!-- TRANG 5: TRANG 8 & 9 -->
+        <div class="paper" id="p5">
+          <div class="front">
+            <h2 class="text-lg font-bold text-red-800 mb-2 uppercase">
+              Tính Thời Sự (3)
+            </h2>
+            <h3 class="font-bold text-gray-800 mb-1">
+              Đại Đoàn Kết Trong Kỷ Nguyên Số
+            </h3>
+            <p>
+              Trong bối cảnh hội nhập và CMCN 4.0, tư tưởng đại đoàn kết là "lá
+              chắn mềm" bảo vệ đất nước.
+            </p>
+            <ul class="list-disc pl-4 text-sm text-gray-600 mb-2">
+              <li>
+                <strong>Hội nhập không hòa tan:</strong> Kết hợp sức mạnh dân
+                tộc với sức mạnh thời đại, thu hút nguồn lực nhưng giữ vững độc
+                lập.
+              </li>
+              <li>
+                <strong>Khát vọng phát triển:</strong> Chung một khát vọng: Việt
+                Nam hùng cường. Đó là điểm hội tụ của mọi tầng lớp.
+              </li>
+            </ul>
+            <p>
+              Đoàn kết giúp ta vững vàng trước những luồng thông tin xấu độc và
+              âm mưu chia rẽ.
+            </p>
+            <div class="page-number">8</div>
+          </div>
+          <div class="back">
+            <h2 class="text-lg font-bold text-red-800 mb-2 uppercase">
+              Tính Thời Sự (4)
+            </h2>
+            <h3 class="font-bold text-gray-800 mb-1">
+              Chuẩn Mực Đạo Đức Con Người Mới
+            </h3>
+            <p>
+              Đạo đức Hồ Chí Minh – với Cần, Kiệm, Liêm, Chính, Chí công vô tư –
+              là "hệ miễn dịch tinh thần" trước lối sống thực dụng.
+            </p>
+            <p>
+              <strong>Ví dụ trong giáo dục:</strong> Phong trào "Học thật, thi
+              thật, nghiên cứu thật". Sự trung thực trong học đường là nền tảng
+              xây dựng nguồn nhân lực chất lượng cao, chống lại bệnh thành tích.
+            </p>
+            <p class="mt-2 text-sm italic text-center">
+              Đây chính là tinh thần "nói đi đôi với làm" mà Người luôn căn dặn.
+            </p>
+            <div class="page-number">9</div>
+          </div>
+        </div>
+
+        <!-- TRANG 6: TRANG 10 & BÌA SAU -->
+        <div class="paper" id="p6">
+          <div class="front">
+            <h2
+              class="text-xl font-bold text-center text-red-800 mb-4 border-b-2 border-red-800 inline-block mx-auto pb-1"
+            >
+              Lời Kết
+            </h2>
+            <h3 class="text-md font-bold text-center italic mb-4 text-gray-600">
+              Hành trình tự giác và bền bỉ
+            </h3>
+            <p class="text-lg leading-relaxed font-serif text-gray-700">
+              "Tư tưởng Hồ Chí Minh không phải là những giáo điều xơ cứng trong
+              sách vở, mà là hơi thở của cuộc sống, là giải pháp cho những vấn
+              đề nóng bỏng nhất của hiện thực."
+            </p>
+            <p class="mt-4">
+              Học tập và làm theo Người không phải là khẩu hiệu, mà là một hành
+              trình tự giác, bền bỉ của mỗi người Việt Nam để xây dựng một đất
+              nước:
+              <strong>Dân giàu, nước mạnh, dân chủ, công bằng, văn minh</strong
+              >.
+            </p>
+            <div class="page-number">10</div>
+          </div>
+          <div
+            class="back cover-back flex flex-col items-center justify-center"
+          >
+            <div
+              class="border-4 border-yellow-600/50 p-4 w-4/5 h-4/5 flex flex-col items-center justify-center text-center rounded"
+            >
+              <h3 class="text-xl font-bold gold-text mb-2">HẾT</h3>
+              <p class="text-yellow-200/60 text-sm mb-6">
+                Cảm ơn bạn đã theo dõi
+              </p>
+
+              <button
+                onclick="event.stopPropagation(); closeBook()"
+                class="px-5 py-2 bg-yellow-900/80 text-yellow-100 border border-yellow-500/30 rounded shadow-lg hover:bg-yellow-800 transition text-sm uppercase tracking-wider relative z-50"
+              >
+                Đóng Sách
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nút điều khiển -->
+      <div class="controls">
+        <button
+          id="prev-btn"
+          class="bg-gray-800/80 hover:bg-gray-700 text-white border border-gray-600 px-5 py-2 rounded-full backdrop-blur-sm transition shadow-lg flex items-center gap-2"
+        >
+          <span>&larr;</span> Trước
+        </button>
+        <div class="text-white/50 text-sm flex items-center px-2">
+          <span class="hidden sm:inline">Dùng phím mũi tên hoặc click</span>
+        </div>
+        <button
+          id="next-btn"
+          class="bg-gray-800/80 hover:bg-gray-700 text-white border border-gray-600 px-5 py-2 rounded-full backdrop-blur-sm transition shadow-lg flex items-center gap-2"
+        >
+          Sau <span>&rarr;</span>
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const pages = document.querySelectorAll(".paper");
+      const nextBtn = document.getElementById("next-btn");
+      const prevBtn = document.getElementById("prev-btn");
+      const book = document.getElementById("book");
+
+      let currentState = 1;
+      const numOfPages = pages.length;
+      const maxState = numOfPages + 1;
+
+      function initZIndex() {
+        pages.forEach((page, index) => {
+          page.style.zIndex = numOfPages - index;
+        });
+      }
+      initZIndex();
+
+      pages.forEach((page, index) => {
+        page.addEventListener("click", function () {
+          if (currentState === index + 1) goNext();
+          else if (currentState === index + 2) goPrev();
+        });
+      });
+
+      nextBtn.addEventListener("click", goNext);
+      prevBtn.addEventListener("click", goPrev);
+
+      function goNext() {
+        if (currentState < maxState) {
+          const currentPage = pages[currentState - 1];
+          currentPage.classList.add("flipped");
+          // Delay Z-index change to ensure it stays on top while flipping
+          setTimeout(() => {
+            currentPage.style.zIndex = currentState;
+          }, 500);
+
+          if (currentState === 1) {
+            if (window.innerWidth > 768)
+              book.style.transform = "translateX(50%)";
+          }
+          currentState++;
+        }
+      }
+
+      function goPrev() {
+        if (currentState > 1) {
+          currentState--;
+          const prevPage = pages[currentState - 1];
+          prevPage.classList.remove("flipped");
+
+          // Restore Z-index immediately so it comes back on top
+          prevPage.style.zIndex = numOfPages - (currentState - 1);
+
+          if (currentState === 1) {
+            if (window.innerWidth > 768)
+              book.style.transform = "translateX(0%)";
+          }
+        }
+      }
+
+      function closeBook() {
+        // Đóng từ từ từng trang
+        let interval = setInterval(() => {
+          if (currentState > 1) {
+            goPrev();
+          } else {
+            clearInterval(interval);
+          }
+        }, 100); // 100ms mỗi trang
+      }
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight") goNext();
+        if (e.key === "ArrowLeft") goPrev();
+      });
+    </script>
+  </body>
+</html>
