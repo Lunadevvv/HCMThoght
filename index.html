@@ -14,7 +14,7 @@
     <style>
       body {
         background-color: #2d3748;
-        background-image: url("background.jpg"); /* Sử dụng ảnh nền local */
+        background-image: url("background.jpg");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -32,8 +32,8 @@
 
       .book {
         position: relative;
-        width: 460px; /* Tăng chiều rộng để chứa nội dung */
-        height: 680px; /* Tăng chiều cao đáng kể */
+        width: 450px;
+        height: 630px;
         transform-style: preserve-3d;
         transition: transform 0.5s;
       }
@@ -44,12 +44,10 @@
         height: 100%;
         top: 0;
         left: 0;
-        transform-origin: left center;
         transform-style: preserve-3d;
+        transform-origin: left center;
         transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
         cursor: pointer;
-        border-radius: 2px 8px 8px 2px;
-        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
       }
 
       .front,
@@ -57,29 +55,33 @@
         position: absolute;
         width: 100%;
         height: 100%;
+        top: 0;
+        left: 0;
         backface-visibility: hidden;
         background-color: #fdfbf7;
-        background-image: url("https://www.transparenttextures.com/patterns/paper.png");
-        display: flex;
-        flex-direction: column;
-        padding: 2.5rem 2.5rem; /* Tăng padding */
+        padding: 2.5rem 3rem;
         box-sizing: border-box;
-        border: 1px solid #e2e8f0;
-        border-left: 2px solid #cbd5e0;
         overflow-y: hidden;
-        justify-content: space-between; /* Căn đều nội dung dọc */
+        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+        background-image: url("https://www.transparenttextures.com/patterns/paper.png");
       }
 
       .front {
         z-index: 2;
+        border-radius: 2px 8px 8px 2px;
+        border: 1px solid #e2e8f0;
+        border-left: 2px solid #cbd5e0;
       }
+
       .back {
         z-index: 1;
         transform: rotateY(180deg);
-        border-left: none;
+        border-radius: 8px 2px 2px 8px;
+        border: 1px solid #e2e8f0;
         border-right: 2px solid #cbd5e0;
       }
 
+      /* Inner shadows for realism */
       .front::after {
         content: "";
         position: absolute;
@@ -101,44 +103,37 @@
         pointer-events: none;
       }
 
-      /* Fix interaction on flipped pages */
-      .paper.flipped .front {
-        pointer-events: none;
-      }
-      .paper.flipped .back {
-        pointer-events: auto;
-      }
-      .paper:not(.flipped) .back {
-        pointer-events: none;
-      }
-      .paper:not(.flipped) .front {
-        pointer-events: auto;
-      }
-
       .flipped {
         transform: rotateY(-180deg);
       }
-      .paper {
-        z-index: 1;
-      }
 
-      /* Typography Custom */
       h1,
       h2,
       h3 {
         font-family: "Playfair Display", serif;
         color: #2d3748;
+        margin-bottom: 0.75rem;
+        line-height: 1.4;
+      }
+      h2 {
+        margin-bottom: 0.65rem;
+      }
+      h3 {
+        margin-bottom: 0.5rem;
       }
       .handwriting {
         font-family: "Dancing Script", cursive;
       }
       p,
       li {
-        font-size: 16px; /* Tăng cỡ chữ */
-        line-height: 1.7; /* Tăng khoảng cách dòng */
-        color: #2d3748; /* Màu chữ đậm hơn chút cho dễ đọc */
+        font-size: 15px;
+        line-height: 1.6;
+        color: #2d3748;
         text-align: justify;
-        margin-bottom: 0.2rem; /* Giảm khoảng cách đoạn */
+        margin-bottom: 0.6rem;
+      }
+      p:last-child {
+        margin-bottom: 0;
       }
       strong {
         color: #1a202c;
@@ -164,18 +159,35 @@
         z-index: 50;
       }
 
-      /* Cover Styles */
+      /* Specific Page Styles */
       .cover-front {
-        background-color: #500000; /* Đỏ thẫm */
+        background-color: #500000;
         background-image: url("https://www.transparenttextures.com/patterns/leather.png");
         color: #ffd700;
         border: 4px solid #552211;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        /* Reset padding for cover to allow full centering */
+        padding: 0;
       }
+      /* Ensure cover content fits with padding manually if needed, or keeping previous style */
+      .cover-front .inner-content {
+        padding: 1.5rem;
+      }
+
       .cover-back {
         background-color: #500000;
         background-image: url("https://www.transparenttextures.com/patterns/leather.png");
         border: 4px solid #552211;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* Reset padding for cover */
+        padding: 0;
       }
+
       .gold-text {
         background: linear-gradient(
           to right,
@@ -190,10 +202,23 @@
         color: transparent;
         text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
       }
+      .compact-list {
+        margin: 0.6rem 0;
+        padding-left: 1.5rem;
+      }
+      .compact-list li {
+        margin-bottom: 0.4rem;
+      }
+      .section-gap {
+        margin-top: 1.2rem;
+      }
+      .tight-text {
+        margin-bottom: 0.6rem;
+      }
     </style>
   </head>
   <body>
-    <!-- Fixed Header -->
+    <!-- Title overlay -->
     <div
       class="fixed top-8 left-8 z-50 text-white drop-shadow-md pointer-events-none"
     >
@@ -203,21 +228,19 @@
         Chính trị - Xã hội
       </h3>
       <h1 class="text-2xl font-bold leading-tight text-yellow-500">
-        Giá trị tư tưởng Hồ Chí Minh với thời đại
+        Chiến dịch "Đốt lò" và sự kế thừa tư tưởng Hồ Chí Minh
       </h1>
     </div>
 
     <div class="book-container">
       <div id="book" class="book">
-        <!-- TRANG 1: BÌA & TRANG 1 -->
-        <div class="paper" id="p1">
-          <div
-            class="front cover-front flex items-center justify-center text-center"
-          >
+        <!-- SHEET 1 -->
+        <div class="paper" id="sheet1">
+          <!-- FRONT: BÌA (P1) -->
+          <div class="front cover-front">
             <div
-              class="border-4 border-double border-yellow-500/40 p-6 w-full h-full flex flex-col justify-between rounded-sm relative overflow-hidden"
+              class="border-4 border-double border-yellow-500/40 p-6 w-[90%] h-[90%] flex flex-col justify-between rounded-sm relative overflow-hidden bg-transparent"
             >
-              <!-- Decorative corners -->
               <div
                 class="absolute top-2 left-2 w-8 h-8 border-t-2 border-l-2 border-yellow-500/60"
               ></div>
@@ -233,7 +256,6 @@
 
               <div class="mt-8 relative z-10">
                 <div class="w-16 h-16 mx-auto mb-6 text-yellow-500 opacity-90">
-                  <!-- Star Icon -->
                   <svg
                     fill="currentColor"
                     viewBox="0 0 24 24"
@@ -255,11 +277,11 @@
                   class="text-4xl md:text-5xl font-bold gold-text leading-tight mb-6 font-serif tracking-wide"
                   style="font-family: 'Playfair Display', serif"
                 >
-                  Ngọn đuốc<br />
+                  Ngọn lửa<br />
                   <span
                     class="text-3xl md:text-4xl italic font-light block mt-2"
                     style="font-family: 'Dancing Script', cursive"
-                    >soi đường thời đại</span
+                    >niềm tin</span
                   >
                 </h1>
 
@@ -277,292 +299,496 @@
               </div>
             </div>
           </div>
+          <!-- BACK: LỜI MỞ ĐẦU (P2) -->
           <div class="back">
             <h2
-              class="text-lg font-bold text-center mb-3 text-red-800 border-b pb-1 uppercase"
+              class="text-base font-bold text-center text-red-800 border-b pb-1 uppercase"
+              style="margin-bottom: 0.8rem"
             >
-              Lời Mở Đầu
+              Lời Nói Đầu: Người Nhóm Lửa Và Di Sản Còn Mãi
             </h2>
-            <h3 class="text-md font-bold text-center italic mb-3 text-gray-600">
-              Tầm vóc xuyên thời gian
-            </h3>
             <p>
-              Thế kỷ XX đã qua đi với bao biến động thăng trầm, nhưng tư tưởng
-              Hồ Chí Minh vẫn sừng sững như một ngọn hải đăng, không chỉ soi
-              sáng con đường giải phóng cho dân tộc Việt Nam mà còn mang giá trị
-              thời đại sâu sắc.
+              Trong lịch sử Đảng Cộng sản Việt Nam, công tác xây dựng và chỉnh
+              đốn Đảng luôn là nhiệm vụ then chốt. Tuy nhiên, chưa bao giờ cuộc
+              chiến chống tham nhũng, tiêu cực lại diễn ra quyết liệt, bài bản
+              và hiệu quả như giai đoạn 10 năm trở lại đây, dưới sự lãnh đạo của
+              cố Tổng Bí thư Nguyễn Phú Trọng.
             </p>
             <p>
-              C.Mác từng nói:
-              <em
-                >"Mỗi thời đại xã hội đều cần có những con người vĩ đại của
-                nó"</em
-              >. Hồ Chí Minh chính là nhân vật lịch sử ấy, người đã đáp ứng yêu
-              cầu cấp thiết của thời đại: giải phóng các dân tộc bị áp bức gắn
-              liền với tiến bộ xã hội.
+              Người dân gọi ông là <strong>"Người đốt lò vĩ đại"</strong>. Hình
+              ảnh "cái lò đã nóng lên" không chỉ là một khẩu hiệu, mà là biểu
+              tượng cho quyết tâm chính trị làm trong sạch bộ máy.
             </p>
             <p>
-              Cuốn sách này sẽ đưa bạn đi từ những giá trị lịch sử cốt lõi đến
-              tính thời sự nóng hổi của tư tưởng Người trong công cuộc xây dựng,
-              chỉnh đốn Đảng và phát triển đất nước ngày nay.
+              Cuốn sách này sẽ phân tích chiến dịch ấy không phải như một hiện
+              tượng nhất thời, mà là sự vận dụng sáng tạo, kiên định tư tưởng Hồ
+              Chí Minh về chống "giặc nội xâm" trong thời đại mới.
             </p>
             <div class="page-number">1</div>
           </div>
         </div>
 
-        <!-- TRANG 2: TRANG 2 & 3 -->
-        <div class="paper" id="p2">
+        <!-- SHEET 2 -->
+        <div class="paper" id="sheet2">
+          <!-- FRONT: CHƯƠNG 1 (P3) -->
           <div class="front">
-            <h2 class="text-lg font-bold text-red-800 mb-2 uppercase">
-              Độc lập Dân tộc & CNXH
+            <h2
+              class="text-base font-bold text-red-800 uppercase"
+              style="margin-bottom: 0.6rem"
+            >
+              Chương 1: Bối Cảnh Và Nguyên Nhân
             </h2>
-            <p>
-              Hồ Chí Minh là người đầu tiên chỉ ra rằng: Độc lập dân tộc không
-              phải là mục tiêu cuối cùng, mà là tiền đề tiên quyết. Nhưng độc
-              lập để làm gì nếu người dân vẫn khổ cực?
+            <h3
+              class="text-sm font-bold text-gray-700"
+              style="margin-bottom: 0.6rem"
+            >
+              Vì sao phải "Đốt lò"?
+            </h3>
+            <p class="text-sm font-semibold" style="margin-bottom: 0.5rem">
+              1. Nguy cơ từ bên trong
             </p>
             <p>
-              Người khẳng định một chân lý bất hủ:
-              <em
-                >"Nếu nước độc lập mà dân không được hưởng hạnh phúc, tự do, thì
-                độc lập cũng chẳng có nghĩa lý gì"</em
-              >.
+              Bước vào thời kỳ đổi mới và hội nhập, bên cạnh những thành tựu to
+              lớn, Đảng và Nhà nước đối diện với những thách thức chưa từng có
+              từ chính nội bộ. Tình trạng suy thoái về tư tưởng chính trị, đạo
+              đức, lối sống, tệ tham nhũng, lãng phí, quan liêu diễn biến phức
+              tạp.
             </p>
             <p>
-              Chính vì vậy, Người đã gắn chặt độc lập dân tộc với chủ nghĩa xã
-              hội. Chỉ có chủ nghĩa xã hội mới xóa bỏ tận gốc áp bức, bóc lột và
-              bảo vệ nền độc lập ấy một cách bền vững.
+              Tại Hội nghị Trung ương 6 khóa XI (tháng 10/2012), cố Tổng Bí thư
+              Nguyễn Phú Trọng đã thay mặt Bộ Chính trị, Ban Bí thư nhận lỗi
+              trước toàn Đảng, toàn dân về những yếu kém trong công tác xây dựng
+              Đảng. Giọt nước mắt nghẹn ngào của người đứng đầu Đảng lúc bấy giờ
+              là minh chứng cho thấy tình hình đã trở nên cấp bách.
             </p>
-            <div class="bg-red-50 p-2 rounded border-l-4 border-red-800 my-2">
-              <p class="text-sm italic text-red-900 m-0 text-center">
-                Đó là con đường tất yếu để hướng tới một xã hội "Dân giàu, nước
-                mạnh, dân chủ, công bằng, văn minh".
-              </p>
-            </div>
             <div class="page-number">2</div>
           </div>
+          <!-- BACK: CHƯƠNG 1 TIẾP (P4) -->
           <div class="back">
-            <h2 class="text-lg font-bold text-red-800 mb-2 uppercase">
-              Hòa Bình & Văn Hóa
-            </h2>
-            <p>
-              Tư tưởng Hồ Chí Minh vượt ra khỏi biên giới quốc gia, trở thành
-              kim chỉ nam cho nền ngoại giao hiện đại với triết lý:
-              <em
-                >"Làm bạn với tất cả mọi nước dân chủ và không gây thù oán với
-                một ai"</em
-              >.
+            <p class="text-sm font-semibold" style="margin-bottom: 0.5rem">
+              2. Tư tưởng Hồ Chí Minh: Nhận diện "Kẻ địch bên trong"
             </p>
             <p>
-              Người sớm nhìn nhận rằng không dân tộc nào có thể phát triển trong
-              sự cô lập. Hợp tác quốc tế là xu thế tất yếu để phá bỏ sự biệt lập
-              và tạo nên sức mạnh tổng hợp.
+              Nguyên nhân sâu xa của việc phát động chiến dịch này bắt nguồn từ
+              tư tưởng Hồ Chí Minh. Sinh thời, Bác Hồ đã chỉ rõ:
+              <em>"Chủ nghĩa cá nhân là một thứ vi trùng rất độc"</em>. Đây là
+              nguồn gốc đẻ ra hàng loạt căn bệnh nguy hiểm như tham ô, lãng phí,
+              quan liêu, ham danh trục lợi.
             </p>
-            <p>
-              Sự vĩ đại ấy đã được thế giới công nhận. Năm 1987, UNESCO đã ra
-              Nghị quyết số 24C/18.6.5 tôn vinh Chủ tịch Hồ Chí Minh là
-              <strong
-                >"Anh hùng giải phóng dân tộc và Nhà văn hóa kiệt xuất của Việt
-                Nam"</strong
-              >.
-            </p>
-            <div class="page-number">3</div>
-          </div>
-        </div>
-
-        <!-- TRANG 3: TRANG 4 & 5 -->
-        <div class="paper" id="p3">
-          <div class="front">
-            <h2 class="text-lg font-bold text-red-800 mb-2 uppercase">
-              Tính Thời Sự (1)
-            </h2>
-            <h3 class="font-bold text-gray-800 mb-1">
-              Xây Dựng Đảng Là Đạo Đức, Văn Minh
-            </h3>
             <p>
               Người từng cảnh báo:
               <em
                 >"Một dân tộc, một Đảng và mỗi con người, ngày hôm qua là vĩ
                 đại... không nhất định hôm nay và ngày mai vẫn được mọi người
                 yêu mến... nếu lòng dạ không trong sáng nữa"</em
+              >. Tham nhũng được Bác gọi là <strong>"giặc nội xâm"</strong>,
+              loại giặc này nguy hiểm hơn cả giặc ngoại xâm vì nó phá hoại từ
+              bên trong, làm xói mòn niềm tin của nhân dân.
+            </p>
+            <p class="text-sm font-semibold" style="margin-bottom: 0.5rem">
+              3. Sự ra đời của Ban Chỉ đạo
+            </p>
+            <p>
+              Trước thực trạng đó, tháng 5/2012, Hội nghị Trung ương 5 khóa XI
+              đã quyết định thành lập Ban Chỉ đạo Trung ương về phòng, chống
+              tham nhũng trực thuộc Bộ Chính trị do Tổng Bí thư làm Trưởng ban.
+              Đây là bước ngoặt về tổ chức, chuyển quyền chỉ đạo từ cơ quan hành
+              chính sang cơ quan lãnh đạo cao nhất của Đảng, tạo tiền đề cho
+              những hành động quyết liệt sau này.
+            </p>
+            <div class="page-number">3</div>
+          </div>
+        </div>
+
+        <!-- SHEET 3 -->
+        <div class="paper" id="sheet3">
+          <!-- FRONT: CHƯƠNG 2 (P5) -->
+          <div class="front">
+            <h2
+              class="text-base font-bold text-red-800 uppercase"
+              style="margin-bottom: 0.6rem"
+            >
+              Chương 2: Quá Trình Và Phương Châm
+            </h2>
+            <h3
+              class="text-sm font-bold text-gray-700"
+              style="margin-bottom: 0.6rem"
+            >
+              "Không có vùng cấm"
+            </h3>
+            <p class="text-sm font-semibold" style="margin-bottom: 0.5rem">
+              1. Triết lý "Củi và Lò"
+            </p>
+            <p>
+              Chiến dịch chống tham nhũng được định danh bằng hình tượng "Đốt
+              lò" từ phát biểu nổi tiếng của Tổng Bí thư Nguyễn Phú Trọng ngày
+              31/7/2017:
+              <em
+                >"Cái lò đã nóng lên rồi thì củi tươi vào đây cũng phải cháy.
+                Củi khô, củi vừa vừa cháy trước, rồi cả lò nóng lên... không ai
+                đứng ngoài cuộc được"</em
               >.
             </p>
-            <p>
-              Người chỉ mặt đặt tên cho "kẻ thù" nguy hiểm nhất ẩn nấp bên trong
-              mỗi cán bộ, đảng viên: <strong>Chủ nghĩa cá nhân</strong>. Người
-              gọi đây là "thứ vi trùng rất độc", là nguồn gốc sinh ra tham ô,
-              lãng phí, quan liêu và ham mê quyền lực.
+            <br />
+            <p class="text-sm font-semibold" style="margin-bottom: 0.5rem">
+              Phương châm hành động xuyên suốt là:
             </p>
-            <p>
-              Nếu không kiên quyết đấu tranh, Đảng sẽ mất dần uy tín và niềm tin
-              của nhân dân.
-            </p>
-            <div class="page-number">4</div>
-          </div>
-          <div class="back">
-            <h2 class="text-lg font-bold text-red-800 mb-2 uppercase">
-              Thực Tiễn: "Vũ Khí" Chống Suy Thoái
-            </h2>
-            <p>
-              Làm thế nào để Đảng luôn trong sạch? Hồ Chí Minh đã trao cho chúng
-              ta những "vũ khí" sắc bén:
-            </p>
-            <ul class="list-decimal pl-4 text-sm text-gray-600 space-y-1 mb-2">
+            <ul class="compact-list text-sm" style="margin-bottom: 0.8rem">
               <li>
-                <strong>Đạo đức là gốc:</strong> "Người cách mạng phải có đạo
-                đức, không có đạo đức thì dù tài giỏi mấy cũng không lãnh đạo
-                được nhân dân".
+                <em
+                  >• "Không có vùng cấm, không có ngoại lệ, bất kể người đó là
+                  ai"</em
+                >
               </li>
+              <li>• Làm từng bước vững chắc, điều tra đến đâu xử lý đến đó</li>
               <li>
-                <strong>Tự phê bình và phê bình:</strong> Phải trung thực, thẳng
-                thắn nhưng dựa trên tình đồng chí.
-              </li>
-              <li>
-                <strong>Dựa vào dân:</strong> "Dễ trăm lần không dân cũng chịu,
-                khó vạn lần dân liệu cũng xong".
+                <em
+                  >• Kết hợp giữa "xây" và "chống", lấy giáo dục răn đe là
+                  chính, nhưng trừng trị phải nghiêm minh</em
+                >
               </li>
             </ul>
-            <p class="text-sm">
-              Việc kiên quyết phòng chống suy thoái tư tưởng, đạo đức hiện nay
-              chính là sự vận dụng sáng tạo những lời dạy này.
+            <div class="page-number">4</div>
+          </div>
+          <!-- BACK: CHƯƠNG 2 TIẾP (P6) -->
+          <div class="back">
+            <p class="text-sm font-semibold" style="margin-bottom: 0.5rem">
+              2. Các giai đoạn cao điểm:
             </p>
+            <p class="text-sm">
+              <strong>• Giai đoạn khởi động (2013-2015):</strong> Tập trung kiện
+              toàn bộ máy, xét xử các vụ án kinh tế lớn tại Vinashin, Vinalines
+              (Dương Chí Dũng, Mai Văn Phúc bị tuyên án tử hình).
+            </p>
+            <br />
+            <p class="text-sm">
+              <strong>• Giai đoạn tăng tốc (2016-2020):</strong> Đánh mạnh vào
+              các sai phạm của cán bộ cấp cao, kể cả Ủy viên Bộ Chính trị. Điển
+              hình là vụ án Đinh La Thăng và Trịnh Xuân Thanh tại Tập đoàn Dầu
+              khí (PVN); vụ án đánh bạc nghìn tỷ liên quan đến tướng công an
+              Phan Văn Vĩnh, Nguyễn Thanh Hóa; vụ án Mobifone mua AVG liên quan
+              đến hai cựu Bộ trưởng Nguyễn Bắc Son, Trương Minh Tuấn.
+            </p>
+            <br />
+            <p class="text-sm">
+              <strong
+                >• Giai đoạn mở rộng và đi vào chiều sâu (2021-nay):</strong
+              >
+              Xử lý sai phạm trong cả khu vực tư nhân có móc nối với quyền lực
+              nhà nước (Vạn Thịnh Phát, FLC, Tân Hoàng Minh) và các đại án mang
+              tính hệ thống như vụ Việt Á, vụ "Chuyến bay giải cứu".
+            </p>
+            <div
+              class="bg-red-50 p-3 rounded border-l-4 border-red-800"
+              style="margin: 1rem 0"
+            >
+              <p
+                class="text-sm italic text-red-900 m-0 text-center font-semibold"
+              >
+                "Với phương châm 'không có vùng cấm, không có ngoại lệ', công
+                cuộc 'đốt lò' đã khẳng định một thái độ chính trị kiên định: khi
+                lò đã nóng lên thì củi tươi cũng phải cháy,biến công tác phòng
+                chống tham nhũng thành xu thế không thể đảo ngược."
+              </p>
+            </div>
             <div class="page-number">5</div>
           </div>
         </div>
 
-        <!-- TRANG 4: TRANG 6 & 7 -->
-        <div class="paper" id="p4">
+        <!-- SHEET 4 -->
+        <div class="paper" id="sheet4">
+          <!-- FRONT: CHƯƠNG 2 KẾT (P7) -->
           <div class="front">
-            <h2 class="text-lg font-bold text-red-800 mb-2 uppercase">
-              Tính Thời Sự (2)
+            <h2
+              class="text-base font-bold text-red-800 uppercase"
+              style="margin-bottom: 0.6rem"
+            >
+              Chương 3: Kết Quả
             </h2>
-            <h3 class="font-bold text-gray-800 mb-1">
-              Nhà Nước Của Dân, Do Dân, Vì Dân
+            <h3
+              class="text-sm font-bold text-gray-700"
+              style="margin-bottom: 0.6rem"
+            >
+              Con số biết nói và niềm tin hồi sinh
             </h3>
-            <p>
-              Tư tưởng cốt lõi: Nhà nước không phải nơi để "làm quan phát tài",
-              mà là công cụ để phục vụ nhân dân.
+            <p class="text-sm font-semibold" style="margin-bottom: 0.5rem">
+              1. Kỷ luật Đảng và Xử lý hình sự
             </p>
-            <ul class="list-disc pl-4 text-sm text-gray-600 mb-2">
-              <li><strong>Của dân:</strong> Quyền lực thuộc về nhân dân.</li>
-              <li><strong>Do dân:</strong> Dân cử ra, dân kiểm soát.</li>
-              <li>
-                <strong>Vì dân:</strong> "Việc gì lợi cho dân phải hết sức làm,
-                việc gì hại cho dân phải hết sức tránh".
-              </li>
-            </ul>
             <p>
-              Trong bối cảnh hiện nay, điều này đòi hỏi chúng ta phải xây dựng
-              một bộ máy nhà nước tinh gọn, hiệu quả, chống lại căn bệnh quan
-              liêu.
+              Kết quả của chiến dịch "Đốt lò" là chưa từng có trong lịch sử:
+              Trong 10 năm (2012-2022), hơn
+              <strong>2.700 tổ chức Đảng</strong> và
+              <strong>167.000 cán bộ, đảng viên</strong> bị kỷ luật.
+            </p>
+            <p>
+              Trong đó có hơn
+              <strong>170 cán bộ diện Trung ương quản lý</strong> (bao gồm cả Ủy
+              viên Bộ Chính trị, Ủy viên Trung ương, sĩ quan cấp tướng).
+            </p>
+            <p>
+              Chỉ tính riêng từ đầu nhiệm kỳ Đại hội XIII đến đầu năm 2024,
+              nhiều lãnh đạo chủ chốt như Chủ tịch nước, Chủ tịch Quốc hội, Phó
+              Thủ tướng đã phải thôi chức hoặc chịu trách nhiệm chính trị.
+            </p>
+            <br />
+            <p class="text-sm font-semibold" style="margin-bottom: 0.5rem">
+              2. Thu hồi tài sản
+            </p>
+            <p>
+              Khác với trước đây, việc thu hồi tài sản tham nhũng được đặc biệt
+              chú trọng. Qua thanh tra, kiểm toán giai đoạn 2012-2022 đã kiến
+              nghị thu hồi, xử lý tài chính hơn
+              <strong>975 nghìn tỷ đồng</strong> và gần
+              <strong>76 nghìn ha đất</strong>. Điều này cho thấy tính thực
+              chất, không chỉ bắt người mà còn phải thu hồi tiền của cho nhân
+              dân.
             </p>
             <div class="page-number">6</div>
           </div>
+          <!-- BACK: CHƯƠNG 3 (P8) -->
           <div class="back">
-            <h2 class="text-lg font-bold text-red-800 mb-2 uppercase">
-              Ví Dụ Thực Tiễn
-            </h2>
-            <h3 class="font-bold text-gray-800 mb-1">
-              Tinh Gọn Bộ Máy & "Đốt Lò"
-            </h3>
-            <p>
-              <strong>Tinh gọn bộ máy:</strong> Chủ trương sáp nhập các đơn vị
-              hành chính chính là vận dụng lời dạy của Bác: "Bộ máy cồng kềnh
-              thì làm việc lúng túng... lãng phí".
+            <p class="text-sm font-semibold" style="margin-bottom: 0.5rem">
+              3. Hiệu ứng xã hội
             </p>
             <p>
-              <strong>Chống "Giặc nội xâm":</strong> Hình ảnh "Củi - Lò" của Cố
-              Tổng Bí thư Nguyễn Phú Trọng là sự kế thừa xuất sắc tư tưởng Hồ
-              Chí Minh: coi tham ô là tội ác, phải trừng trị thẳng tay không có
-              vùng cấm, để làm trong sạch bộ máy, củng cố niềm tin của nhân dân.
+              Chiến dịch đã tạo ra hiệu ứng lan tỏa mạnh mẽ, trở thành "xu thế
+              không thể đảo ngược". Niềm tin của nhân dân vào sự lãnh đạo của
+              Đảng được củng cố. Tư tưởng "hạ cánh an toàn" bị xóa bỏ.
             </p>
+            <div
+              class="bg-red-50 p-3 rounded border-l-4 border-red-800"
+              style="margin: 1rem 0"
+            >
+              <p
+                class="text-sm italic text-red-900 m-0 text-center font-semibold"
+              >
+                "Hàng loạt bản án nghiêm minh đối với cán bộ cấp cao và khối
+                lượng tài sản thu hồi khổng lồ không chỉ là những con số biết
+                nói về sự quyết liệt, mà quan trọng hơn, chúng đã thắp sáng lại
+                niềm tin của nhân dân, chứng minh rằng công lý và lẽ phải đang
+                thực sự được thực thi trong lòng chế độ."
+              </p>
+            </div>
             <div class="page-number">7</div>
           </div>
         </div>
 
-        <!-- TRANG 5: TRANG 8 & 9 -->
-        <div class="paper" id="p5">
+        <!-- SHEET 5 -->
+        <div class="paper" id="sheet5">
+          <!-- FRONT: CHƯƠNG 3 TIẾP (P9) -->
           <div class="front">
-            <h2 class="text-lg font-bold text-red-800 mb-2 uppercase">
-              Tính Thời Sự (3)
+            <h2
+              class="text-base font-bold text-red-800 uppercase"
+              style="margin-bottom: 0.6rem"
+            >
+              Chương 4: Phân Tích Tính Liên Hệ
             </h2>
-            <h3 class="font-bold text-gray-800 mb-1">
-              Đại Đoàn Kết Trong Kỷ Nguyên Số
+            <h3
+              class="text-sm font-bold text-gray-700"
+              style="margin-bottom: 0.6rem"
+            >
+              Với Tư Tưởng Hồ Chí Minh
             </h3>
-            <p>
-              Trong bối cảnh hội nhập và CMCN 4.0, tư tưởng đại đoàn kết là "lá
-              chắn mềm" bảo vệ đất nước.
+            <p class="text-sm italic" style="margin-bottom: 0.6rem">
+              Đây là nội dung cốt lõi, chứng minh chiến dịch "Đốt lò" là sự kế
+              thừa xuất sắc tư tưởng của Bác.
             </p>
-            <ul class="list-disc pl-4 text-sm text-gray-600 mb-2">
-              <li>
-                <strong>Hội nhập không hòa tan:</strong> Kết hợp sức mạnh dân
-                tộc với sức mạnh thời đại, thu hút nguồn lực nhưng giữ vững độc
-                lập.
-              </li>
-              <li>
-                <strong>Khát vọng phát triển:</strong> Chung một khát vọng: Việt
-                Nam hùng cường. Đó là điểm hội tụ của mọi tầng lớp.
-              </li>
-            </ul>
-            <p>
-              Đoàn kết giúp ta vững vàng trước những luồng thông tin xấu độc và
-              âm mưu chia rẽ.
+            <p class="text-sm font-semibold" style="margin-bottom: 0.5rem">
+              1. Tính nhân văn trong sự nghiêm khắc: "Cắt cành sâu để cứu cây"
             </p>
+            <p>
+              Hồ Chí Minh từng dạy:
+              <em
+                >"Phải có cái tâm trong sáng, việc gì lợi cho dân phải hết sức
+                làm, việc gì hại cho dân phải hết sức tránh"</em
+              >.
+            </p>
+            <p>
+              Người cũng căn dặn xử lý cán bộ phải:
+              <strong>"Tiểu lý đại nghĩa"</strong>, tức là vì nghĩa lớn mà phải
+              xử lý cái nhỏ.
+            </p>
+            <p>
+              Cố Tổng Bí thư Nguyễn Phú Trọng đã vận dụng nhuần nhuyễn tư tưởng
+              này. Ông nhiều lần nhắc lại lời Bác Hồ:
+              <em>"Phải cắt bỏ một vài cành cây sâu mọt để cứu cả cái cây"</em>.
+              Việc xử lý cán bộ, dù đau xót, không phải là để trị ai hay thù oán
+              ai, mà là để cảnh tỉnh, răn đe, để cứu lấy uy tín của Đảng và sự
+              tồn vong của chế độ.
+            </p>
+
             <div class="page-number">8</div>
           </div>
+          <!-- BACK: CHƯƠNG 4 (P10) -->
           <div class="back">
-            <h2 class="text-lg font-bold text-red-800 mb-2 uppercase">
-              Tính Thời Sự (4)
-            </h2>
-            <h3 class="font-bold text-gray-800 mb-1">
-              Chuẩn Mực Đạo Đức Con Người Mới
-            </h3>
-            <p>
-              Đạo đức Hồ Chí Minh – với Cần, Kiệm, Liêm, Chính, Chí công vô tư –
-              là "hệ miễn dịch tinh thần" trước lối sống thực dụng.
+            <p class="text-sm font-semibold" style="margin-bottom: 0.5rem">
+              2. Dựa vào dân để xây dựng Đảng
             </p>
             <p>
-              <strong>Ví dụ trong giáo dục:</strong> Phong trào "Học thật, thi
-              thật, nghiên cứu thật". Sự trung thực trong học đường là nền tảng
-              xây dựng nguồn nhân lực chất lượng cao, chống lại bệnh thành tích.
+              Hồ Chí Minh khẳng định:
+              <em
+                >"Dễ trăm lần không dân cũng chịu, khó vạn lần dân liệu cũng
+                xong"</em
+              >. Trong chiến dịch Đốt lò, vai trò của nhân dân và công luận được
+              đề cao tối đa.
             </p>
-            <p class="mt-2 text-sm italic text-center">
-              Đây chính là tinh thần "nói đi đôi với làm" mà Người luôn căn dặn.
+            <p>
+              Quan điểm
+              <strong>"Dân biết, dân bàn, dân làm, dân kiểm tra"</strong> được
+              cụ thể hóa bằng việc công khai các kết luận thanh tra, kiểm tra.
+              Cố Tổng Bí thư Nguyễn Phú Trọng nhấn mạnh: "Lò nóng lên" là nhờ sự
+              đồng lòng của toàn dân, khiến cho "cá nhân nào muốn không làm cũng
+              không thể được".
             </p>
+            <br />
+            <p class="text-sm font-semibold" style="margin-bottom: 0.5rem">
+              3. Xây dựng Nhà nước pháp quyền và kiểm soát quyền lực
+            </p>
+            <p>
+              Tư tưởng Hồ Chí Minh về Nhà nước là
+              <strong>"của dân, do dân, vì dân"</strong>. Quyền lực nhà nước
+              phải được kiểm soát bằng pháp luật và đạo đức.
+            </p>
+            <p>
+              Chiến dịch Đốt lò thực chất là quá trình thiết lập lại kỷ cương,
+              phép nước, thực hiện cơ chế
+              <strong>"nhốt quyền lực vào trong lồng cơ chế"</strong>.
+            </p>
+
             <div class="page-number">9</div>
           </div>
         </div>
 
-        <!-- TRANG 6: TRANG 10 & BÌA SAU -->
-        <div class="paper" id="p6">
+        <!-- SHEET 6 -->
+        <div class="paper" id="sheet6">
+          <!-- FRONT: CHƯƠNG 4 TIẾP (P11) -->
           <div class="front">
-            <h2
-              class="text-xl font-bold text-center text-red-800 mb-4 border-b-2 border-red-800 inline-block mx-auto pb-1"
+            <p>
+              Việc xử lý các tập đoàn kinh tế tư nhân thao túng chính sách (như
+              Vạn Thịnh Phát, FLC) chính là để bảo vệ tính thượng tôn pháp luật
+              và quyền lợi chính đáng của nhân dân lao động.
+            </p>
+            <br />
+            <p class="text-sm font-semibold" style="margin-bottom: 0.5rem">
+              4. Đạo đức cách mạng: Cần, Kiệm, Liêm, Chính
+            </p>
+            <p>
+              Hồ Chí Minh coi đạo đức là "gốc" của người cách mạng. Cố Tổng Bí
+              thư Nguyễn Phú Trọng là hiện thân của tấm gương học tập và làm
+              theo Bác. Câu nói nổi tiếng của ông:
+              <em
+                >"Tiền bạc lắm làm gì, chết có mang theo được đâu. Danh dự mới
+                là điều thiêng liêng, cao quý nhất!"</em
+              >
+              chính là sự phản chiếu rực rỡ nhất phẩm chất
+              <strong>Liêm</strong> và <strong>Chính</strong> trong tư tưởng Hồ
+              Chí Minh.
+            </p>
+            <p>
+              Chính sự gương mẫu, giản dị, liêm khiết của người đứng đầu đã tạo
+              nên uy tín và sức mạnh để chiến dịch thành công.
+            </p>
+            <div
+              class="bg-red-50 p-3 rounded border-l-4 border-red-800"
+              style="margin: 1rem 0"
             >
-              Lời Kết
-            </h2>
-            <h3 class="text-md font-bold text-center italic mb-4 text-gray-600">
-              Hành trình tự giác và bền bỉ
-            </h3>
-            <p class="text-lg leading-relaxed font-serif text-gray-700">
-              "Tư tưởng Hồ Chí Minh không phải là những giáo điều xơ cứng trong
-              sách vở, mà là hơi thở của cuộc sống, là giải pháp cho những vấn
-              đề nóng bỏng nhất của hiện thực."
-            </p>
-            <p class="mt-4">
-              Học tập và làm theo Người không phải là khẩu hiệu, mà là một hành
-              trình tự giác, bền bỉ của mỗi người Việt Nam để xây dựng một đất
-              nước:
-              <strong>Dân giàu, nước mạnh, dân chủ, công bằng, văn minh</strong
-              >.
-            </p>
+              <p
+                class="text-sm italic text-red-900 m-0 text-center font-semibold"
+              >
+                "Chiến dịch 'Đốt lò' chính là sự vận dụng sáng tạo và kiên định
+                tư tưởng Hồ Chí Minh: kiên quyết loại bỏ 'giặc nội xâm', khẳng
+                định danh dự mới là điều thiêng liêng, cao quý nhất để giữ trọn
+                niềm tin của nhân dân."
+              </p>
+            </div>
             <div class="page-number">10</div>
           </div>
-          <div
-            class="back cover-back flex flex-col items-center justify-center"
-          >
+          <!-- BACK: CHƯƠNG 4 KẾT (P12) -->
+          <div class="back">
+            <h2
+              class="text-base font-bold text-red-800 uppercase"
+              style="margin-bottom: 0.6rem"
+            >
+              Chương 5: Kết Luận
+            </h2>
+            <h3
+              class="text-sm font-bold text-gray-700"
+              style="margin-bottom: 0.6rem"
+            >
+              Bài Học Và Hướng Đi
+            </h3>
+            <p class="text-sm font-semibold" style="margin-bottom: 0.5rem">
+              1. Bài học kinh nghiệm
+            </p>
+            <p style="margin-bottom: 0.6rem">
+              Từ chiến dịch "Đốt lò", chúng ta rút ra những bài học thấm nhuần
+              tư tưởng Hồ Chí Minh:
+            </p>
+            <ul class="compact-list text-sm" style="margin-bottom: 1rem">
+              <li>
+                Phải kiên quyết, kiên trì, không ngừng nghỉ, không có vùng cấm.
+              </li>
+              <li>
+                Phải kết hợp chặt chẽ giữa xây và chống, lấy đức trị kết hợp với
+                pháp trị.
+              </li>
+              <li>
+                Người lãnh đạo phải gương mẫu, "bàn tay sạch mới rửa được vết
+                bẩn".
+              </li>
+            </ul>
+            <p class="text-sm font-semibold" style="margin-bottom: 0.5rem">
+              2. Lời kết: Ngọn lửa không bao giờ tắt
+            </p>
+            <p>
+              Cố Tổng Bí thư Nguyễn Phú Trọng đã đi xa, nhưng di sản "Chiếc lò"
+              ông để lại vẫn rực cháy. Đó không chỉ là sự trừng phạt, mà là
+              <strong>ngọn lửa của niềm tin</strong>, ngọn lửa thanh lọc để đất
+              nước vươn mình.
+            </p>
+            <div class="page-number">11</div>
+          </div>
+        </div>
+
+        <!-- SHEET 7 -->
+        <div class="paper" id="sheet7">
+          <!-- FRONT: CHƯƠNG 4 ĐẠO ĐỨC (P13) -->
+          <div class="front">
+            <p>
+              Tư tưởng Hồ Chí Minh về xây dựng, chỉnh đốn Đảng, qua sự vận dụng
+              của Tổng Bí thư Nguyễn Phú Trọng, đã chứng minh sức sống mãnh
+              liệt.
+            </p>
+            <p>
+              Để thực hiện khát vọng Việt Nam hùng cường, mỗi cán bộ, đảng viên
+              cần khắc ghi lời thề danh dự, giữ gìn đạo đức cách mạng, để Đảng
+              ta thực sự <strong>"là đạo đức, là văn minh"</strong> như Bác Hồ
+              hằng mong muốn.
+            </p>
             <div
-              class="border-4 border-yellow-600/50 p-4 w-4/5 h-4/5 flex flex-col items-center justify-center text-center rounded"
+              class="bg-red-50 p-3 rounded border-l-4 border-red-800"
+              style="margin: 1rem 0"
+            >
+              <p
+                class="text-sm italic text-red-900 m-0 text-center font-semibold"
+              >
+                "Ngọn lửa niềm tin đã được nhóm lên, và sẽ tiếp tục cháy sáng,
+                dẫn lối cho đất nước vững bước trên con đường xây dựng và bảo vệ
+                Tổ quốc Việt Nam xã hội chủ nghĩa."
+              </p>
+            </div>
+            <p
+              class="text-center text-gray-600 italic"
+              style="margin-top: 1.2rem"
+            >
+              --- HẾT ---
+            </p>
+            <div class="page-number">12</div>
+          </div>
+          <!-- BACK: BÌA SAU (P16) -->
+          <div class="back cover-back">
+            <div
+              class="border-4 border-yellow-600/50 p-4 w-[80%] h-[80%] flex flex-col items-center justify-center text-center rounded"
             >
               <h3 class="text-xl font-bold gold-text mb-2">HẾT</h3>
               <p class="text-yellow-200/60 text-sm mb-6">
@@ -571,7 +797,7 @@
 
               <button
                 onclick="event.stopPropagation(); closeBook()"
-                class="px-5 py-2 bg-yellow-900/80 text-yellow-100 border border-yellow-500/30 rounded shadow-lg hover:bg-yellow-800 transition text-sm uppercase tracking-wider relative z-50"
+                class="px-5 py-2 bg-yellow-900/80 text-yellow-100 border border-yellow-500/30 rounded shadow-lg hover:bg-yellow-800 transition text-sm uppercase tracking-wider relative z-50 cursor-pointer"
               >
                 Đóng Sách
               </button>
@@ -580,11 +806,11 @@
         </div>
       </div>
 
-      <!-- Nút điều khiển -->
+      <!-- Controls -->
       <div class="controls">
         <button
           id="prev-btn"
-          class="bg-gray-800/80 hover:bg-gray-700 text-white border border-gray-600 px-5 py-2 rounded-full backdrop-blur-sm transition shadow-lg flex items-center gap-2"
+          class="bg-gray-800/80 hover:bg-gray-700 text-white border border-gray-600 px-5 py-2 rounded-full backdrop-blur-sm transition shadow-lg flex items-center gap-2 cursor-pointer"
         >
           <span>&larr;</span> Trước
         </button>
@@ -593,7 +819,7 @@
         </div>
         <button
           id="next-btn"
-          class="bg-gray-800/80 hover:bg-gray-700 text-white border border-gray-600 px-5 py-2 rounded-full backdrop-blur-sm transition shadow-lg flex items-center gap-2"
+          class="bg-gray-800/80 hover:bg-gray-700 text-white border border-gray-600 px-5 py-2 rounded-full backdrop-blur-sm transition shadow-lg flex items-center gap-2 cursor-pointer"
         >
           Sau <span>&rarr;</span>
         </button>
@@ -601,26 +827,42 @@
     </div>
 
     <script>
-      const pages = document.querySelectorAll(".paper");
+      const sheets = document.querySelectorAll(".paper");
       const nextBtn = document.getElementById("next-btn");
       const prevBtn = document.getElementById("prev-btn");
       const book = document.getElementById("book");
 
-      let currentState = 1;
-      const numOfPages = pages.length;
-      const maxState = numOfPages + 1;
+      // currentState tracks the number of sheets flipped
+      // 0: Closed book (Front Cover visible)
+      // 1: Sheet 1 flipped (Opened to Page 2/3)
+      // ...
+      let currentState = 0;
+      const numOfSheets = sheets.length; // 8 sheets
 
       function initZIndex() {
-        pages.forEach((page, index) => {
-          page.style.zIndex = numOfPages - index;
+        sheets.forEach((sheet, index) => {
+          // Initial stack order: Sheet 1 is Top (highest Z), Sheet 8 is Bottom (lowest Z)
+          sheet.style.zIndex = numOfSheets - index;
         });
       }
       initZIndex();
 
-      pages.forEach((page, index) => {
-        page.addEventListener("click", function () {
-          if (currentState === index + 1) goNext();
-          else if (currentState === index + 2) goPrev();
+      sheets.forEach((sheet, index) => {
+        sheet.addEventListener("click", function () {
+          // Logic:
+          // If this sheet is top of Right Stack (not flipped), flip it NEXT.
+          // If this sheet is top of Left Stack (flipped), flip it PREV.
+
+          // IfcurrentState == index (e.g. state 0, index 0). Sheet 1 is on top right. Click -> Next.
+          // If state == 1. Sheet 1 is flipped (left). Sheet 2 is visible right.
+          // If click Sheet 2 (index 1) -> state 1 == index 1 -> Next.
+          // If click Sheet 1 (index 0) -> It's on left. state 1 == index 0 + 1 -> Prev.
+
+          if (currentState === index) {
+            goNext();
+          } else if (currentState === index + 1) {
+            goPrev();
+          }
         });
       });
 
@@ -628,47 +870,91 @@
       prevBtn.addEventListener("click", goPrev);
 
       function goNext() {
-        if (currentState < maxState) {
-          const currentPage = pages[currentState - 1];
-          currentPage.classList.add("flipped");
-          // Delay Z-index change to ensure it stays on top while flipping
-          setTimeout(() => {
-            currentPage.style.zIndex = currentState;
-          }, 500);
+        if (currentState < numOfSheets) {
+          const currentSheet = sheets[currentState];
 
-          if (currentState === 1) {
+          currentSheet.classList.add("flipped");
+          currentSheet.style.zIndex = currentState + 1; // Left stack Z-index logic: Top is Higher.
+          // Wait?
+          // Left stack:
+          // Flip Sheet 1. It lands.
+          // Flip Sheet 2. It lands ON TOP of Sheet 1.
+          // So new flipped sheet must have HIGHER z-index than previous flipped sheet.
+          // currentState is 0. Next -> currentState becomes 1.
+          // Sheet 0 flipped. zIndex = 1.
+          // currentState is 1. Next -> currentState becomes 2.
+          // Sheet 1 flipped. zIndex = 2.
+          // So zIndex = currentState + 1;
+
+          if (currentState === 0) {
             if (window.innerWidth > 768)
               book.style.transform = "translateX(50%)";
           }
+          // Special case for last sheet?
+          if (currentState === numOfSheets - 1) {
+            if (window.innerWidth > 768)
+              book.style.transform = "translateX(100%)";
+          }
+
           currentState++;
         }
       }
 
       function goPrev() {
-        if (currentState > 1) {
+        if (currentState > 0) {
           currentState--;
-          const prevPage = pages[currentState - 1];
-          prevPage.classList.remove("flipped");
+          const prevSheet = sheets[currentState];
 
-          // Restore Z-index immediately so it comes back on top
-          prevPage.style.zIndex = numOfPages - (currentState - 1);
+          prevSheet.classList.remove("flipped");
 
-          if (currentState === 1) {
+          // Restore Right stack Z-index logic.
+          // Sheet index = currentState.
+          // Z = numOfSheets - index.
+          // Delay Z restoration so it doesn't clip through while animating?
+          // Actually, simply restoring z-index immediately might cause it to jump BEHIND the left stack too early?
+          // Left stack items have low z-indices (1, 2...).
+          // Right stack items have high z-indices (8, 7...).
+          // If I flip Sheet 1 back:
+          // It is currently z=1.
+          // Becomes z=8.
+          // Should be fine, it will pop to top.
+          // Wait, if I flip Sheet 2 (z=2) back.
+          // It becomes z=7.
+          // Sheet 1 is still z=1 (Flipped).
+          // Sheet 2 (Right) is z=7. Above Sheet 1. Correct.
+
+          // But visually, as it rotates 0->180 (reverse), it might clip.
+          // Standard practice: Change z-index halfway? Or just set it.
+          // Let's set it immediately and see if transition handles it (preserve-3d should).
+          // Actually, in CSS, `z-index` change is instant. Transform is transitioned.
+          // If we change Z instantly, it might jump.
+          // When going Prev (Left to Right):
+          // We want it to be "On Top" of Left stack AND "On Top" of Right stack during flight?
+          // It is the moving element.
+          // Let's just set it to calculated value.
+
+          prevSheet.style.zIndex = numOfSheets - currentState;
+
+          // Center logic
+          if (currentState === 0) {
             if (window.innerWidth > 768)
               book.style.transform = "translateX(0%)";
+          }
+          if (currentState === numOfSheets - 1) {
+            if (window.innerWidth > 768)
+              book.style.transform = "translateX(50%)"; // Back to center
           }
         }
       }
 
       function closeBook() {
-        // Đóng từ từ từng trang
         let interval = setInterval(() => {
-          if (currentState > 1) {
+          if (currentState > 0) {
             goPrev();
           } else {
             clearInterval(interval);
           }
-        }, 100); // 100ms mỗi trang
+        }, 100);
       }
 
       document.addEventListener("keydown", (e) => {
