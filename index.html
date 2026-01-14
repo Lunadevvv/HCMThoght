@@ -215,6 +215,35 @@
       .tight-text {
         margin-bottom: 0.6rem;
       }
+      /* TOC Styles */
+      .toc-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 0.8rem;
+        font-family: "Playfair Display", serif;
+        font-size: 16px;
+        border-bottom: 1px dotted #cbd5e0;
+        padding-bottom: 2px;
+      }
+      .toc-title {
+        font-weight: 600;
+        color: #2d3748;
+        padding-right: 10px;
+        background: #fdfbf7; /* cover dotted line */
+        z-index: 1;
+        position: relative;
+        top: 4px; /* Adjust to cover dotted line */
+      }
+      .toc-page {
+        font-weight: bold;
+        color: #a0aec0;
+        background: #fdfbf7;
+        padding-left: 10px;
+        z-index: 1;
+        position: relative;
+        top: 4px;
+      }
     </style>
   </head>
   <body>
@@ -236,7 +265,7 @@
       <div id="book" class="book">
         <!-- SHEET 1 -->
         <div class="paper" id="sheet1">
-          <!-- FRONT: BÌA (P1) -->
+          <!-- FRONT: BÌA -->
           <div class="front cover-front">
             <div
               class="border-4 border-double border-yellow-500/40 p-6 w-[90%] h-[90%] flex flex-col justify-between rounded-sm relative overflow-hidden bg-transparent"
@@ -299,8 +328,54 @@
               </div>
             </div>
           </div>
-          <!-- BACK: LỜI MỞ ĐẦU (P2) -->
+          <!-- BACK: MỤC LỤC -->
           <div class="back">
+            <h2
+              class="text-2xl font-bold text-center text-red-800 border-b-2 border-red-800/20 pb-4 uppercase tracking-widest"
+              style="margin-bottom: 2rem; margin-top: 1rem"
+            >
+              Mục Lục
+            </h2>
+
+            <div class="px-2">
+              <div class="toc-item">
+                <span class="toc-title">Lời Nói Đầu: Người Nhóm Lửa</span>
+                <span class="toc-page">1</span>
+              </div>
+              <div class="toc-item">
+                <span class="toc-title">Chương 1: Bối Cảnh</span>
+                <span class="toc-page">2</span>
+              </div>
+              <div class="toc-item">
+                <span class="toc-title">Chương 2: Quá Trình</span>
+                <span class="toc-page">4</span>
+              </div>
+              <div class="toc-item">
+                <span class="toc-title">Chương 3: Kết Quả</span>
+                <span class="toc-page">6</span>
+              </div>
+              <div class="toc-item">
+                <span class="toc-title">Chương 4: Phân Tích</span>
+                <span class="toc-page">8</span>
+              </div>
+              <div class="toc-item">
+                <span class="toc-title">Chương 5: Kết Luận</span>
+                <span class="toc-page">11</span>
+              </div>
+            </div>
+
+            <div
+              class="absolute bottom-10 left-0 w-full text-center opacity-50"
+            >
+              <div class="w-12 h-1 bg-red-800/20 mx-auto"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SHEET 2 -->
+        <div class="paper" id="sheet2">
+          <!-- FRONT: LỜI MỞ ĐẦU (Old S1 Back) -->
+          <div class="front">
             <h2
               class="text-base font-bold text-center text-red-800 border-b pb-1 uppercase"
               style="margin-bottom: 0.8rem"
@@ -329,12 +404,8 @@
             </p>
             <div class="page-number">1</div>
           </div>
-        </div>
-
-        <!-- SHEET 2 -->
-        <div class="paper" id="sheet2">
-          <!-- FRONT: CHƯƠNG 1 (P3) -->
-          <div class="front">
+          <!-- BACK: Chương 1 Part 1 (Old S2 Front) -->
+          <div class="back">
             <h2
               class="text-base font-bold text-red-800 uppercase"
               style="margin-bottom: 0.6rem"
@@ -376,8 +447,12 @@
             </p>
             <div class="page-number">2</div>
           </div>
-          <!-- BACK: CHƯƠNG 1 TIẾP (P4) -->
-          <div class="back">
+        </div>
+
+        <!-- SHEET 3 -->
+        <div class="paper" id="sheet3">
+          <!-- FRONT: Chương 1 Part 2 (Old S2 Back) -->
+          <div class="front">
             <p>
               Đó là thời điểm nhận thức rõ ràng rằng: nếu không kiên quyết đấu
               tranh, "giặc nội xâm" sẽ làm xói mòn bản chất của Đảng và đe dọa
@@ -401,12 +476,8 @@
             </p>
             <div class="page-number">3</div>
           </div>
-        </div>
-
-        <!-- SHEET 3 -->
-        <div class="paper" id="sheet3">
-          <!-- FRONT: CHƯƠNG 2 (P5) -->
-          <div class="front">
+          <!-- BACK: Chương 2 Part 1 (Old S3 Front) -->
+          <div class="back">
             <h2
               class="text-base font-bold text-red-800 uppercase"
               style="margin-bottom: 0.6rem"
@@ -448,8 +519,12 @@
 
             <div class="page-number">4</div>
           </div>
-          <!-- BACK: CHƯƠNG 2 TIẾP (P6) -->
-          <div class="back">
+        </div>
+
+        <!-- SHEET 4 -->
+        <div class="paper" id="sheet4">
+          <!-- FRONT: Chương 2 Part 2 (Old S3 Back) -->
+          <div class="front">
             <p class="text-sm font-semibold" style="margin-bottom: 0.5rem">
               Phương châm hành động xuyên suốt của chiến dịch là:
             </p>
@@ -495,12 +570,8 @@
             </div>
             <div class="page-number">5</div>
           </div>
-        </div>
-
-        <!-- SHEET 4 -->
-        <div class="paper" id="sheet4">
-          <!-- FRONT: CHƯƠNG 2 KẾT (P7) -->
-          <div class="front">
+          <!-- BACK: Chương 3 Part 1 (Old S4 Front) -->
+          <div class="back">
             <h2
               class="text-base font-bold text-red-800 uppercase"
               style="margin-bottom: 0.6rem"
@@ -547,8 +618,12 @@
             </p>
             <div class="page-number">6</div>
           </div>
-          <!-- BACK: CHƯƠNG 3 (P8) -->
-          <div class="back">
+        </div>
+
+        <!-- SHEET 5 -->
+        <div class="paper" id="sheet5">
+          <!-- FRONT: Chương 3 Part 2 (Old S4 Back) -->
+          <div class="front">
             <p class="text-sm font-semibold" style="margin-bottom: 0.5rem">
               3. Hiệu ứng xã hội
             </p>
@@ -572,12 +647,8 @@
             </div>
             <div class="page-number">7</div>
           </div>
-        </div>
-
-        <!-- SHEET 5 -->
-        <div class="paper" id="sheet5">
-          <!-- FRONT: CHƯƠNG 3 TIẾP (P9) -->
-          <div class="front">
+          <!-- BACK: Chương 4 Part 1 (Old S5 Front) -->
+          <div class="back">
             <h2
               class="text-base font-bold text-red-800 uppercase"
               style="margin-bottom: 0.6rem"
@@ -621,8 +692,12 @@
 
             <div class="page-number">8</div>
           </div>
-          <!-- BACK: CHƯƠNG 4 (P10) -->
-          <div class="back">
+        </div>
+
+        <!-- SHEET 6 -->
+        <div class="paper" id="sheet6">
+          <!-- FRONT: Chương 4 Part 2 (Old S5 Back) -->
+          <div class="front">
             <p class="text-sm font-semibold" style="margin-bottom: 0.5rem">
               2. Dựa vào dân để xây dựng Đảng
             </p>
@@ -648,12 +723,8 @@
 
             <div class="page-number">9</div>
           </div>
-        </div>
-
-        <!-- SHEET 6 -->
-        <div class="paper" id="sheet6">
-          <!-- FRONT: CHƯƠNG 4 TIẾP (P11) -->
-          <div class="front">
+          <!-- BACK: Chương 4 Part 3 (Old S6 Front) -->
+          <div class="back">
             <p class="text-sm font-semibold" style="margin-bottom: 0.5rem">
               4. Đạo đức cách mạng: Cần, Kiệm, Liêm, Chính
             </p>
@@ -688,8 +759,12 @@
             </div>
             <div class="page-number">10</div>
           </div>
-          <!-- BACK: CHƯƠNG 4 KẾT (P12) -->
-          <div class="back">
+        </div>
+
+        <!-- SHEET 7 -->
+        <div class="paper" id="sheet7">
+          <!-- FRONT: Chương 5 Part 1 (Old S6 Back) -->
+          <div class="front">
             <h2
               class="text-base font-bold text-red-800 uppercase"
               style="margin-bottom: 0.6rem"
@@ -735,12 +810,8 @@
 
             <div class="page-number">11</div>
           </div>
-        </div>
-
-        <!-- SHEET 7 -->
-        <div class="paper" id="sheet7">
-          <!-- FRONT: CHƯƠNG 4 ĐẠO ĐỨC (P13) -->
-          <div class="front">
+          <!-- BACK: Chương 5 End (Old S7 Front) -->
+          <div class="back">
             <p>
               Tư tưởng Hồ Chí Minh về xây dựng, chỉnh đốn Đảng, qua sự vận dụng
               sáng tạo của Tổng Bí thư Nguyễn Phú Trọng, đã chứng minh sức sống
@@ -780,7 +851,23 @@
             </p>
             <div class="page-number">12</div>
           </div>
-          <!-- BACK: BÌA SAU (P16) -->
+        </div>
+
+        <!-- SHEET 8 (NEW) -->
+        <div class="paper" id="sheet8">
+          <!-- FRONT: End / Placeholder -->
+          <div
+            class="front"
+            style="display: flex; justify-content: center; align-items: center"
+          >
+            <div class="text-center opacity-70">
+              <div
+                class="w-12 h-12 border-4 border-red-800/30 rounded-full mx-auto mb-4"
+              ></div>
+              <p class="text-sm font-serif italic">Hồ Chí Minh</p>
+            </div>
+          </div>
+          <!-- BACK: Back Cover (Old S7 Back) -->
           <div class="back cover-back">
             <div
               class="border-4 border-yellow-600/50 p-4 w-[80%] h-[80%] flex flex-col items-center justify-center text-center rounded"
