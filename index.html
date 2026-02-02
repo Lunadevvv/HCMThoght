@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
@@ -304,12 +304,11 @@
 
                 <h1
                   class="text-4xl md:text-5xl font-bold gold-text leading-tight mb-6 font-serif tracking-wide"
-                  style="font-family: 'Playfair Display', serif"
+                  style="font-family: &quot;Playfair Display&quot;, serif"
                 >
                   Ngọn lửa<br />
                   <span
                     class="text-3xl md:text-4xl italic font-light block mt-2"
-                    style="font-family: 'Dancing Script', cursive"
                     >niềm tin</span
                   >
                 </h1>
@@ -319,12 +318,29 @@
                 ></div>
               </div>
 
-              <div class="mb-6 relative z-10">
+              <div class="flex flex-col items-center mb-8">
                 <p
-                  class="text-yellow-400 font-bold text-xs tracking-wider uppercase drop-shadow-md"
+                  class="text-yellow-400 font-bold text-sm tracking-wider uppercase drop-shadow-md mb-3"
                 >
                   Nhóm 1
                 </p>
+                <div class="flex flex-col items-center gap-1">
+                  <p class="text-yellow-200/90 text-xs font-serif italic">
+                    1. Vũ Minh Đạt
+                  </p>
+                  <p class="text-yellow-200/90 text-xs font-serif italic">
+                    2. Cao Hoàng Nhật
+                  </p>
+                  <p class="text-yellow-200/90 text-xs font-serif italic">
+                    3. Đặng Trường Phát
+                  </p>
+                  <p class="text-yellow-200/90 text-xs font-serif italic">
+                    4. Trịnh Hải Đức
+                  </p>
+                  <p class="text-yellow-200/90 text-xs font-serif italic">
+                    5. Phạm Minh Long
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -878,7 +894,10 @@
               </p>
 
               <button
-                onclick="event.stopPropagation(); closeBook()"
+                onclick="
+                  event.stopPropagation();
+                  closeBook();
+                "
                 class="px-5 py-2 bg-yellow-900/80 text-yellow-100 border border-yellow-500/30 rounded shadow-lg hover:bg-yellow-800 transition text-sm uppercase tracking-wider relative z-50 cursor-pointer"
               >
                 Đóng Sách
